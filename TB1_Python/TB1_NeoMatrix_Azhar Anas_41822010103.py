@@ -1,31 +1,26 @@
 import re
 
-def matrix_input():
-    return [tuple(row) for row in iter(input, "")]
+def process_matrix_file(file_path):
+    print("\nMatrix Script:\n")
 
-print("\nMatrix Script:\n")
-trans_matrix = list(zip(*matrix_input()))
+    with open(file_path, "r") as file:
+        lines = file.readlines()
+        for line in lines:
+            print(line.strip())
 
-decode = "".join("".join(row) for row in trans_matrix)
-print("After Decode:", decode)
+    rows, cols = map(int, lines[0].split())
 
-add_space = ""
-for row in trans_matrix:
-    add_space += " ".join(re.findall(r'[a-zA-Z]+', "".join(row))) + ""
-print("Adding Space:", add_space)
+    matrix = [list(line.strip()) for line in lines[1:]]
+    matrix = [row + [" "] * (cols - len(row)) for row in matrix]
 
+    trans_matrix = list(zip(*matrix))
 
-"""
+    decode = "".join("".join(row) for row in trans_matrix)
+    print("\nAfter Decode:", decode)
 
-Matrix Script Example:
+    add_space = ""
+    for row in trans_matrix:
+        add_space += " ".join(re.findall(r'[a-zA-Z]+', "".join(row))) + " "
+    print("Adding Space:", add_space)
 
-7 3
-Tsi
-h%x
-i #
-sM 
-$a 
-#t%
-ir!
-
-"""
+process_matrix_file("matrix1.txt")
