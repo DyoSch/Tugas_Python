@@ -20,7 +20,5 @@ trans_matrix = list(zip(*matrix))
 decode = "".join("".join(row) for row in trans_matrix)
 print("\nAfter Decode:", decode)
 
-add_space = ""
-for row in trans_matrix:
-    add_space += " ".join(re.findall(r'[a-zA-Z]+', "".join(row))) + ""
+add_space = re.sub(r"(?<=\w)([^\w\d]+)(?=\w)", " ", decode)
 print("Adding Space:", add_space)
